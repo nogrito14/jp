@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Pré-visualização – Cobrança{% endblock %}
+{% block content %}
+<div class="card">
+  <h3>Pré-visualização</h3>
+  <form method="get" action="/preview" class="row" style="margin-bottom:.8rem">
+    <label for="status">Filtrar status</label>
+    <select name="status" id="status" onchange="this.form.submit()">
+      <option value="" {% if not status %}selected{% endif %}>Todos</option>
+      {% for s in statuses %}
+        <option value="{{ s }}" {% if status == s %}selected{% endif %}>{{ s }}</option>
+      {% endfor %}
+    </select>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Telefone</th>
+        <th>Valor</th>
+        <th>Vencimento</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in debts %}
+      <tr>
+        <td>{{ d.client_name }}</td>
+        <td>{{ d.phone or '' }}</td>
+        <td>R$ {{ '%.2f'|format(d.amount) }}</td>
+        <td>{{ d.due_date.strftime('%d/%m/%Y') }}</td>
+        <td>{{ d.status }}</td>
+      </tr>
+      {% endfor %}
+      {% if debts|length == 0 %}
+      <tr>
+        <td colspan="5" class="muted">Nenhum registro.</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+
+  <div style="height:1rem"></div>
+  <form action="/send" method="post" class="row">
+    <label for="status_send">Enviar mensagens para</label>
+    <select name="status" id="status_send" required>
+      <option value="em_debito" {% if status=='em_debito' %}selected{% endif %}>em_debito</option>
+      <option value="a_pagar" {% if status=='a_pagar' %}selected{% endif %}>a_pagar</option>
+    </select>
+    <label><input type="checkbox" name="dry_run" checked /> Dry-run</label>
+    <button class="btn" type="submit">Enviar</button>
+  </form>
+</div>
+{% endblock %}
