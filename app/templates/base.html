@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Cobrança – Salomon{% endblock %}</title>
+    <style>
+      body { font-family: system-ui, Arial, sans-serif; margin: 2rem; }
+      header { margin-bottom: 1.5rem; }
+      .container { max-width: 980px; margin: 0 auto; }
+      .card { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; }
+      table { border-collapse: collapse; width: 100%; }
+      th, td { border: 1px solid #ddd; padding: .5rem .6rem; font-size: 14px; }
+      th { background: #f5f5f5; text-align: left; }
+      .row { display: flex; gap: 1rem; align-items: center; }
+      .btn { display: inline-block; padding: .6rem 1rem; background: #0d6efd; color: #fff; text-decoration: none; border-radius: 6px; border: 0; cursor: pointer; }
+      .btn.secondary { background: #6c757d; }
+      .btn.warning { background: #ffc107; color: #000; }
+      .btn.success { background: #198754; }
+      .muted { color: #666; font-size: 14px; }
+      .error { color: #b00020; margin-top: .5rem; }
+      form { display: block; margin: 0; }
+      label { display: block; margin-bottom: .3rem; }
+      input[type=file] { display: block; margin-bottom: .8rem; }
+      select, input[type=checkbox] { margin-right: .5rem; }
+      nav a { margin-right: .8rem; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h2 style="margin:0">Cobrança – Salomon Ltda.</h2>
+        <nav>
+          <a href="/">Início</a>
+          <a href="/preview">Pré-visualização</a>
+        </nav>
+      </header>
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

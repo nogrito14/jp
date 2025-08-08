@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Início – Cobrança{% endblock %}
+{% block content %}
+<div class="card">
+  <h3>Importar arquivo (PDF ou CSV)</h3>
+  <form action="/import" method="post" enctype="multipart/form-data">
+    <label>Arquivo exportado do ERP</label>
+    <input name="file" type="file" accept=".pdf,.csv" required />
+    <button class="btn" type="submit">Importar</button>
+  </form>
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+  <p class="muted">Janela "a pagar": {{ due_soon_days }} dias. Empresa: {{ officina_name }}</p>
+</div>
+
+{% if has_data %}
+  <div style="height:1rem"></div>
+  <div class="card">
+    <div class="row">
+      <a class="btn secondary" href="/preview">Ver todos</a>
+      <a class="btn warning" href="/preview?status=a_pagar">Ver a pagar</a>
+      <a class="btn success" href="/preview?status=em_debito">Ver em débito</a>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}

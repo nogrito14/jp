@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Envio – Resultado{% endblock %}
+{% block content %}
+<div class="card">
+  <h3>Resultado do envio</h3>
+  <p>Status alvo: <strong>{{ status }}</strong></p>
+  <p>Total selecionados: <strong>{{ total }}</strong></p>
+  <p>Enviados: <strong>{{ sent }}</strong></p>
+  <p>Ignorados: <strong>{{ skipped }}</strong></p>
+  <p>Modo: <strong>{% if dry_run %}dry-run{% else %}real{% endif %}</strong></p>
+  <div style="height:1rem"></div>
+  <a class="btn" href="/preview?status={{ status }}">Voltar</a>
+</div>
+{% endblock %}
