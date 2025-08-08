@@ -42,6 +42,7 @@ async def index(request: Request):
 
 @app.post("/import", response_class=HTMLResponse)
 async def import_file(request: Request, file: UploadFile = File(...)):
+    global LAST_DEBTS
     suffix = os.path.splitext(file.filename or "")[1].lower()
     if suffix not in {".pdf", ".csv"}:
         return templates.TemplateResponse(
@@ -66,7 +67,6 @@ async def import_file(request: Request, file: UploadFile = File(...)):
         except OSError:
             pass
 
-    global LAST_DEBTS
     LAST_DEBTS = apply_classification(debts, today=date.today(), due_soon_days=CONFIG.due_soon_days)
     return RedirectResponse(url="/preview", status_code=303)
 
